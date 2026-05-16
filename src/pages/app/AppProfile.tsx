@@ -63,12 +63,13 @@ export function AppProfile() {
             const reqQuery = query(collection(db, 'reviews'), where('authorId', '==', targetUserId));
             const revSnap = await getDocs(reqQuery);
             setReviews(revSnap.docs.map(d => ({id: d.id, ...d.data()})));
-          } catch (err: any) {
+         } catch (err: any) {
              setReviews([]); 
+             // Intentionally swallowing for missing permissions on private reviews
           }
         }
       } catch (err) {
-        console.error(err);
+        handleFirestoreError(err, OperationType.GET, targetUserId ? `users/${targetUserId}` : `users/${user?.uid}`);
       } finally {
         setLoading(false);
       }
@@ -90,8 +91,9 @@ export function AppProfile() {
       } else {
         setSearchResult('not_found');
       }
-    } catch {
+    } catch (err) {
       setSearchResult('not_found');
+      handleFirestoreError(err, OperationType.GET, 'users');
     } finally {
       setSearching(false);
     }
@@ -124,6 +126,7 @@ export function AppProfile() {
       setPrivacySetting(newPrivacy);
     } catch (err) {
       console.error('Failed to update privacy', err);
+      handleFirestoreError(err, OperationType.UPDATE, `users/${user.uid}`);
     }
   };
 
@@ -139,8 +142,8 @@ export function AppProfile() {
       });
       setEditProfileOpen(false);
     } catch (err) {
-      console.error(err);
       alert('프로필 수정 중 오류가 발생했습니다.');
+      handleFirestoreError(err, OperationType.UPDATE, `users/${user.uid}`);
     } finally {
       setIsSaving(false);
     }

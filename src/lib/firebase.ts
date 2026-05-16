@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
-import { getFirestore, doc, getDoc, setDoc, serverTimestamp, updateDoc } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, setDoc, serverTimestamp, updateDoc, getDocFromServer } from 'firebase/firestore';
 import localFirebaseConfig from '../../firebase-applet-config.json';
 
 // Vercel 환경 변수가 등록되어 있으면 Vercel 변수를, 없다면 기존 로컬 설정(AI Studio)을 사용합니다.
@@ -74,6 +74,7 @@ export async function loginWithGoogle() {
     if (!userSnap.exists()) {
       await setDoc(userRef, {
         uid: user.uid,
+        username: 'user_' + Math.random().toString(36).substring(2, 8),
         displayName: user.displayName || 'Unknown',
         photoURL: user.photoURL || '',
         historyPrivacy: 'public', // Default
@@ -91,3 +92,15 @@ export async function loginWithGoogle() {
 export async function logout() {
   await signOut(auth);
 }
+
+// Test connection
+async function testConnection() {
+  try {
+    await getDocFromServer(doc(db, 'test', 'connection'));
+  } catch (error) {
+    if(error instanceof Error && error.message.includes('the client is offline')) {
+      console.error("Please check your Firebase configuration.");
+    }
+  }
+}
+testConnection();

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../lib/auth-context';
-import { db } from '../../lib/firebase';
+import { db, handleFirestoreError, OperationType } from '../../lib/firebase';
 import { collection, query, where, getDocs, doc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronRight, ChevronLeft, Check, Music, Accessibility, HeartHandshake, UserCircle, RefreshCcw } from 'lucide-react';
@@ -53,8 +53,8 @@ export function AppOnboarding() {
         setUsernameError('');
         setStep(2);
       } catch (err) {
-        console.error(err);
         setUsernameError('아이디 중복 확인 중 오류가 발생했습니다.');
+        handleFirestoreError(err, OperationType.GET, 'users');
       } finally {
         setCheckingUsername(false);
       }
@@ -81,9 +81,9 @@ export function AppOnboarding() {
       });
       // Context will update automatically
     } catch (e) {
-      console.error(e);
-      alert('설정 저장 중 오류가 발생했습니다.');
       setIsSubmitting(false);
+      alert('설정 저장 중 오류가 발생했습니다.');
+      handleFirestoreError(e, OperationType.UPDATE, `users/${user.uid}`);
     }
   };
 

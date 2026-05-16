@@ -6,13 +6,23 @@
       "type": "object",
       "properties": {
         "uid": { "type": "string" },
+        "username": { "type": "string" },
         "displayName": { "type": "string" },
         "photoURL": { "type": "string" },
         "historyPrivacy": { "type": "string", "enum": ["public", "followers", "private"] },
+        "onboardingCompleted": { "type": "boolean" },
+        "preferences": {
+           "type": "object",
+           "properties": {
+             "genres": { "type": "array" },
+             "accessibility": { "type": "array" },
+             "services": { "type": "array" }
+           }
+        },
         "createdAt": { "type": "number" },
         "updatedAt": { "type": "number" }
       },
-      "required": ["uid", "displayName", "historyPrivacy", "createdAt", "updatedAt"]
+      "required": ["uid", "username", "displayName", "historyPrivacy", "onboardingCompleted", "createdAt", "updatedAt"]
     },
     "Review": {
       "title": "Review",

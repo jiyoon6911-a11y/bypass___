@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { auth, db } from './firebase';
+import { auth, db, handleFirestoreError, OperationType } from './firebase';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc, onSnapshot } from 'firebase/firestore';
 
@@ -40,6 +40,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             setProfile(docSnap.data() as UserProfile);
           }
           setLoading(false);
+        }, (error) => {
+          handleFirestoreError(error, OperationType.GET, `users/${u.uid}`);
         });
         return () => unsubProfile();
       } else {

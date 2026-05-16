@@ -1,10 +1,10 @@
 {
-  "projectId": "remixed-project-id",
-  "appId": "remixed-app-id",
-  "apiKey": "remixed-api-key",
-  "authDomain": "remixed-auth-domain",
-  "firestoreDatabaseId": "remixed-firestore-database-id",
-  "storageBucket": "remixed-storage-bucket",
-  "messagingSenderId": "remixed-messaging-sender-id",
-  "measurementId": "remixed-measurement-id"
+  "projectId": "commanding-freedom-85xj8",
+  "appId": "1:925960057340:web:eb2431f61108775e5b0279",
+  "apiKey": "AIzaSyDqLr8VLm1_AAVaKWxwCTnLtHWP6e-D0ZE",
+  "authDomain": "commanding-freedom-85xj8.firebaseapp.com",
+  "firestoreDatabaseId": "ai-studio-0f5b6345-577e-410c-87e6-619cc35c9e59",
+  "storageBucket": "commanding-freedom-85xj8.firebasestorage.app",
+  "messagingSenderId": "925960057340",
+  "measurementId": ""
 }
