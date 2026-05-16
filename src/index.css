@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cyan-400: #00e5ff;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+}
+
+/* Hide scrollbar for mobile app feel */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

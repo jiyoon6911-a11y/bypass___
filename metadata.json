@@ -1,0 +1,12 @@
+{
+  "name": "Remix: Remix: 403 BYPASS",
+  "description": "배리어 프리를 넘어선 유니버설 서비스 공연 안내 플랫폼 프로토타입",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
